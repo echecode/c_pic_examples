@@ -17,7 +17,7 @@ int unSegundo=0;
 
 interrupt void rutinaInterrupcion(){
     //aca viene cuando ocurre la interrupcion
-    if(INTCONbits.T0IF != 0) //Si la interrupción fue por timer9
+    if(INTCONbits.T0IF != 0) //Si la interrupciÃ³n fue por timer9
     {   INTCONbits.T0IF=0;        
           
         TMR0=15500; //Inicializo, Cuenta desde 15535 hasta 65535 = 50000 cuentas = 50ms
