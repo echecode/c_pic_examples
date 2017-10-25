@@ -43,9 +43,9 @@ INTCONbits.GIE=1;
 uint8_t buffer;
 uint8_t recibido=0;
 interrupt void isr(){    
-    if(RCIF!=0){             //RCIF bandera interrupcion
-        recibido=1;
+    if(RCIF!=0){             //RCIF bandera interrupcion        
         buffer=RCREG;        //El dato se lee en RCREG
+        recibido=1;
     }
     //RCSTABits.FERR  //ERROR FRAMMING
     //RCSTABits.OERR  //ERROR OVERRUN
