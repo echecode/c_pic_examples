@@ -17,10 +17,10 @@ int unSegundo=0;
 
 interrupt void rutinaInterrupcion(){
     //aca viene cuando ocurre la interrupcion
-    if(INTCONbits.T0IF != 0) //Si la interrupción fue por timer9
-    {   INTCONbits.T0IF=0;        
+    if(INTCONbits.T0IF != 0){ //Si la interrupción fue por timer
+       INTCONbits.T0IF=0;        
           
-        TMR0=15500; //Inicializo, Cuenta desde 15535 hasta 65535 = 50000 cuentas = 50ms
+        TMR0=15500; //Inicialización, cuenta desde 15535 hasta 65535 = 50000 cuentas = 50ms
         
         contador++;
         if(contador>=2){
@@ -28,12 +28,10 @@ interrupt void rutinaInterrupcion(){
             //100 ms
             contadorSegundos++;
             if(contadorSegundos>=10){
-                contadorSegundos=0;
-            
+                contadorSegundos=0;            
                         unSegundo=1;
                 }
-            }            
-        
+            }                    
     }
 }
 
@@ -58,8 +56,8 @@ void main(void) {
     INTCONbits.GIE=1;    //habilita interrupciones generales
  
     do{
-    if(unSegundo!=0){
-        unSegundo=0;
+         if(unSegundo!=0){
+            unSegundo=0;
    
             oscilador=!oscilador;
     
@@ -68,9 +66,8 @@ void main(void) {
             }else{
                 PORTB=0x00; //0000 0001 enciende led   
             }
-    }
+         }    
+    }while(1);
     
-}while(1);
     
-    return;
 }
