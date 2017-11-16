@@ -15,8 +15,7 @@ int contador=0;
 int contadorSegundos=0;
 int unSegundo=0;
 
-interrupt void rutinaInterrupcion(){
-    //aca viene cuando ocurre la interrupcion
+interrupt void rutinaInterrupcion(){ //Esta función se llama automáticamente cuando ocurre la interrupción
     if(INTCONbits.T0IF != 0){ //Si la interrupción fue por timer
        INTCONbits.T0IF=0;        
           
@@ -37,20 +36,20 @@ interrupt void rutinaInterrupcion(){
 
 void main(void) {
     
-    TRISB=0x00; //todo PORTB como salida
+    TRISB=0x00; //Configura todo el PORTB como salida
     CMCON=0x07; //Apaga comparadores para poder usar i/o digital puerto A 
             
     OPTION_REGbits.T0CS=0;//Fuente de Clock Interna
     OPTION_REGbits.PSA=0; //Utiliza Prescaler en TMR0
     
-    //Prescaler en 111 para que cuente cada 256
+    //Prescaler en 111 para que cuente 1 cada 256 pulsos del clock
     OPTION_REGbits.PS0=1;
     OPTION_REGbits.PS1=1;
     OPTION_REGbits.PS2=1;    
     
-    TMR0=0;
+    TMR0=0; //inicializa timer0 en cero
     
-    PORTB=0x00; //0000 0000
+    PORTB=0x00; //0000 0000 inicializa puerto en cero
   
     INTCONbits.T0IE=1;  //habilita interrupcion por timer0
     INTCONbits.GIE=1;    //habilita interrupciones generales
@@ -59,15 +58,12 @@ void main(void) {
          if(unSegundo!=0){
             unSegundo=0;
    
-            oscilador=!oscilador;
-    
+            oscilador=!oscilador;    
             if(oscilador==0){
                 PORTB=0x01; //0000 0001 enciende led   
             }else{
                 PORTB=0x00; //0000 0001 enciende led   
             }
          }    
-    }while(1);
-    
-    
+    }while(1);       
 }
